@@ -1,0 +1,17 @@
+[Unit]
+Description=Quran Play Juz 30 Web App Static Server
+After=network.target
+
+[Service]
+Type=simple
+User=lukman
+Group=lukman
+WorkingDirectory=/home/lukman/quran-play-juz30
+Environment=PORT=8130
+Environment=BIND=0.0.0.0
+ExecStart=/usr/bin/python3 /home/lukman/quran-play-juz30/server.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
