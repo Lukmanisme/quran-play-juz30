@@ -2,10 +2,107 @@ class AudioManager {
   constructor() {
     this.ctx = null;
     this.enabled = true;
+    this.murottalAudio = typeof Audio !== 'undefined' ? new Audio() : null;
+    if (this.murottalAudio) {
+      this.murottalAudio.preload = 'auto';
+    }
+    this._murottalSeq = 0;
   }
 
   setEnabled(value) {
     this.enabled = Boolean(value);
+    if (!this.enabled) {
+      this.stopMurottal();
+    }
+  }
+
+  stopMurottal() {
+    this._murottalSeq += 1;
+    if (!this.murottalAudio) return;
+    this.murottalAudio.onended = null;
+    this.murottalAudio.onerror = null;
+    try {
+      this.murottalAudio.pause();
+      this.murottalAudio.currentTime = 0;
+    } catch {
+      // Ignore media reset errors before load
+    }
+  }
+
+  _playMurottalUrl(url, { onFallback = null, onEnded = null } = {}) {
+    if (!this.enabled) {
+      onEnded?.();
+      return;
+    }
+    if (!this.murottalAudio || !url) {
+      onFallback?.();
+      onEnded?.();
+      return;
+    }
+
+    this.stopMurottal();
+    const seq = ++this._murottalSeq;
+    const audio = this.murottalAudio;
+
+    const handleFail = () => {
+      if (seq !== this._murottalSeq) return;
+      audio.onended = null;
+      audio.onerror = null;
+      onFallback?.();
+      onEnded?.();
+    };
+
+    audio.onended = () => {
+      if (seq !== this._murottalSeq) return;
+      audio.onended = null;
+      audio.onerror = null;
+      onEnded?.();
+    };
+
+    audio.onerror = handleFail;
+
+    try {
+      audio.src = url;
+      audio.currentTime = 0;
+      const playPromise = audio.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(handleFail);
+      }
+    } catch {
+      handleFail();
+    }
+  }
+
+  playWordAudio(audioUrl) {
+    if (!this.enabled) return;
+    if (!audioUrl) {
+      this.stopMurottal();
+      this.playCorrect();
+      return;
+    }
+    const cleanPath = String(audioUrl).replace(/^\/+/, '');
+    const fullUrl = cleanPath.startsWith('http')
+      ? cleanPath
+      : `https://audio.qurancdn.com/${cleanPath}`;
+
+    this._playMurottalUrl(fullUrl, {
+      onFallback: () => this.playCorrect(),
+    });
+  }
+
+  playAyahAudio(surahNumber, ayahNumber, { onEnded = null } = {}) {
+    if (!this.enabled) {
+      onEnded?.();
+      return;
+    }
+    const s = String(surahNumber).padStart(3, '0');
+    const a = String(ayahNumber).padStart(3, '0');
+    const url = `https://everyayah.com/data/Alafasy_128kbps/${s}${a}.mp3`;
+
+    this._playMurottalUrl(url, {
+      onFallback: () => this.playCorrect(),
+      onEnded,
+    });
   }
 
   _getContext() {

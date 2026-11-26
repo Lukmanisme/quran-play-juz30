@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Eye, EyeOff, BookOpen } from 'lucide-react';
+import { Eye, EyeOff, BookOpen, Volume2 } from 'lucide-react';
 import { toArabicIndic } from '../services/QuranService.js';
 import audioManager from '../services/AudioManager.js';
 
@@ -10,6 +10,7 @@ export default function TranslationBoard({
   ghostText,
   onToggleGhostText,
   lastHintIndex,
+  recitingVerseNumber,
 }) {
   const activeRef = useRef(null);
 
@@ -28,13 +29,21 @@ export default function TranslationBoard({
   return (
     <div className="flex-1 flex flex-col min-h-0 px-3 pt-2 pb-2">
       {/* Toolbar */}
-      <div className="flex items-center justify-between mb-1.5 px-1">
-        <span className="inline-flex items-center gap-1 text-[11px] font-extrabold text-sky-800 bg-sky-100 px-2.5 py-0.5 rounded-full border border-sky-200">
-          <BookOpen className="w-3 h-3" />
-          <span>
-            {surah.nameSimple} • Ayat {verse.verseNumber}
+      <div className="flex items-center justify-between gap-2 mb-1.5 px-1">
+        <div className="flex items-center gap-1.5 min-w-0">
+          <span className="inline-flex items-center gap-1 text-[11px] font-extrabold text-sky-800 bg-sky-100 px-2.5 py-0.5 rounded-full border border-sky-200 truncate">
+            <BookOpen className="w-3 h-3 shrink-0" />
+            <span>
+              {surah.nameSimple} • Ayat {verse.verseNumber}
+            </span>
           </span>
-        </span>
+          {recitingVerseNumber !== null && (
+            <span className="inline-flex items-center gap-1 text-[11px] font-black text-emerald-800 bg-emerald-200/90 px-2 py-0.5 rounded-full border border-emerald-400 shadow-sm animate-pulse shrink-0">
+              <Volume2 className="w-3 h-3" />
+              <span>Ayat {recitingVerseNumber}</span>
+            </span>
+          )}
+        </div>
 
         <button
           type="button"
@@ -56,7 +65,13 @@ export default function TranslationBoard({
       {/* Konten Utama: Ayat Arab Utuh + Slot Terjemahan */}
       <div className="flex-1 min-h-0 overflow-y-auto space-y-2.5">
         {/* Kartu Ayat Arab Utuh */}
-        <div className="rounded-3xl bg-[#fdfaf0] border-2 border-emerald-600/35 p-4 shadow-sm">
+        <div
+          className={`rounded-3xl bg-[#fdfaf0] border-2 p-4 shadow-sm transition-all duration-300 ${
+            recitingVerseNumber === verse.verseNumber
+              ? 'border-emerald-400 ring-2 ring-emerald-300/70 bg-emerald-50/70'
+              : 'border-emerald-600/35'
+          }`}
+        >
           <div className="flex items-center justify-between mb-1">
             <span className="text-[11px] font-extrabold text-emerald-700">
               Hal. {verse.pageNumber}

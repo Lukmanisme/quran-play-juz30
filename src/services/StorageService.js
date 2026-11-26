@@ -1,5 +1,5 @@
 const PROFILE_KEY = 'quran_play_juz30_profile_v1';
-const SURAH_CACHE_PREFIX = 'quran_play_juz30_surah_v1_';
+const SURAH_CACHE_PREFIX = 'quran_play_juz30_surah_v2_';
 
 export const DEFAULT_PROFILE = {
   name: '',

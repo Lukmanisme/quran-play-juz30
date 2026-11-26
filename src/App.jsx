@@ -98,6 +98,7 @@ export default function App() {
         profile={profile}
         surah={activeSurah}
         hasNextSurah={Boolean(nextSurah)}
+        onToggleSfx={handleToggleSfx}
         onExit={() => {
           setScreen('list');
           setActiveSurah(null);

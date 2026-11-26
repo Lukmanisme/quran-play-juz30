@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, Volume2 } from 'lucide-react';
 import { toArabicIndic } from '../services/QuranService.js';
 import audioManager from '../services/AudioManager.js';
 
@@ -11,6 +11,7 @@ export default function MushafBoard({
   ghostText,
   onToggleGhostText,
   lastHintIndex,
+  recitingVerseNumber,
 }) {
   const activeRef = useRef(null);
 
@@ -30,10 +31,18 @@ export default function MushafBoard({
   return (
     <div className="flex-1 flex flex-col min-h-0 px-3 pt-2 pb-2">
       {/* Toolbar kecil di atas mushaf */}
-      <div className="flex items-center justify-between mb-1.5 px-1">
-        <span className="text-[11px] font-extrabold text-emerald-800 bg-emerald-100/90 px-2.5 py-0.5 rounded-full border border-emerald-200">
-          Hal. {stage.pageNumber} • Ayat {stage.startVerse}–{stage.endVerse}
-        </span>
+      <div className="flex items-center justify-between gap-2 mb-1.5 px-1">
+        <div className="flex items-center gap-1.5 min-w-0">
+          <span className="text-[11px] font-extrabold text-emerald-800 bg-emerald-100/90 px-2.5 py-0.5 rounded-full border border-emerald-200 truncate">
+            Hal. {stage.pageNumber} • Ayat {stage.startVerse}–{stage.endVerse}
+          </span>
+          {recitingVerseNumber !== null && (
+            <span className="inline-flex items-center gap-1 text-[11px] font-black text-emerald-800 bg-emerald-200/90 px-2 py-0.5 rounded-full border border-emerald-400 shadow-sm animate-pulse shrink-0">
+              <Volume2 className="w-3 h-3" />
+              <span>Ayat {recitingVerseNumber}</span>
+            </span>
+          )}
+        </div>
 
         <button
           type="button"
@@ -94,6 +103,7 @@ export default function MushafBoard({
             {stage.verses.map((verse) => {
               const verseStart = runningIndex;
               runningIndex += verse.arabicWords.length;
+              const isReciting = recitingVerseNumber === verse.verseNumber;
 
               return (
                 <React.Fragment key={verse.id}>
@@ -107,8 +117,10 @@ export default function MushafBoard({
                       return (
                         <span
                           key={`${verse.id}-${wIdx}`}
-                          className={`inline-flex items-center justify-center px-1.5 py-0.5 rounded-xl font-arabic text-[22px] sm:text-[25px] leading-[2.15] transition ${
-                            wasHinted
+                          className={`inline-flex items-center justify-center px-1.5 py-0.5 rounded-xl font-arabic text-[22px] sm:text-[25px] leading-[2.15] transition-all duration-300 ${
+                            isReciting
+                              ? 'bg-emerald-100/90 text-emerald-950 ring-1 ring-emerald-400/80 shadow-[0_0_12px_rgba(16,185,129,0.28)]'
+                              : wasHinted
                               ? 'bg-amber-100/90 text-amber-900 ring-1 ring-amber-300 animate-pop-in'
                               : 'text-slate-900 animate-pop-in'
                           }`}
@@ -155,7 +167,9 @@ export default function MushafBoard({
                   {/* Ornamen Nomor Ayat Bulat Hijau */}
                   <span
                     title={`Ayat ${verse.verseNumber}`}
-                    className="inline-flex items-center justify-center w-8 h-8 mx-0.5 rounded-full bg-emerald-600 text-amber-100 border-2 border-amber-300 shadow-sm font-arabic text-base leading-none shrink-0"
+                    className={`inline-flex items-center justify-center w-8 h-8 mx-0.5 rounded-full bg-emerald-600 text-amber-100 border-2 border-amber-300 shadow-sm font-arabic text-base leading-none shrink-0 transition-all duration-300 ${
+                      isReciting ? 'ring-4 ring-emerald-300/80 scale-110' : ''
+                    }`}
                   >
                     {toArabicIndic(verse.verseNumber)}
                   </span>

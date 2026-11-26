@@ -10,6 +10,8 @@ import {
   ChevronRight,
   BookOpenCheck,
   Languages,
+  Volume2,
+  VolumeX,
 } from 'lucide-react';
 import QuranService, {
   buildSurahStages,
@@ -28,6 +30,7 @@ export default function Gameplay({
   profile,
   surah,
   hasNextSurah,
+  onToggleSfx,
   onExit,
   onCompleteSurah,
   onNextSurah,
@@ -53,12 +56,27 @@ export default function Gameplay({
 
   const [wrongChoiceId, setWrongChoiceId] = useState(null);
   const [lastHintIndex, setLastHintIndex] = useState(null);
+  const [recitingVerseNumber, setRecitingVerseNumber] = useState(null);
   const [floatingPoints, setFloatingPoints] = useState(null);
   const [stageCleared, setStageCleared] = useState(false);
   const [isWin, setIsWin] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
 
+  useEffect(() => {
+    return () => {
+      audioManager.stopMurottal();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!profile.sfxEnabled) {
+      setRecitingVerseNumber(null);
+    }
+  }, [profile.sfxEnabled]);
+
   const resetGameState = useCallback(() => {
+    audioManager.stopMurottal();
+    setRecitingVerseNumber(null);
     setStageIndex(0);
     setMushafCursor(0);
     setTrVerseIndex(0);
@@ -113,10 +131,17 @@ export default function Gameplay({
     return surahData.verses.flatMap((v) => v.translationWords);
   }, [surahData]);
 
-  // Token stage untuk mode mushaf
-  const stageArabicTokens = useMemo(() => {
+  // Token stage beserta audio_url dan penanda kata terakhir ayat untuk mode mushaf
+  const stageArabicItems = useMemo(() => {
     if (!currentStage) return [];
-    return currentStage.verses.flatMap((v) => v.arabicWords);
+    return currentStage.verses.flatMap((v) =>
+      v.arabicWords.map((word, idx) => ({
+        word,
+        audioUrl: v.arabicWordAudios?.[idx] || null,
+        verseNumber: v.verseNumber,
+        isLastInVerse: idx === v.arabicWords.length - 1,
+      }))
+    );
   }, [currentStage]);
 
   // Ayat aktif untuk mode terjemahan
@@ -126,10 +151,10 @@ export default function Gameplay({
   const targetWord = useMemo(() => {
     if (!currentStage) return null;
     if (mode === 'mushaf') {
-      return stageArabicTokens[mushafCursor] ?? null;
+      return stageArabicItems[mushafCursor]?.word ?? null;
     }
     return currentTrVerse?.translationWords?.[trWordCursor] ?? null;
-  }, [mode, currentStage, stageArabicTokens, mushafCursor, currentTrVerse, trWordCursor]);
+  }, [mode, currentStage, stageArabicItems, mushafCursor, currentTrVerse, trWordCursor]);
 
   // 6 pilihan kata acak setiap kali targetWord / posisi berubah
   const choices = useMemo(() => {
@@ -157,13 +182,15 @@ export default function Gameplay({
   };
 
   const finishLevel = useCallback(
-    (finalScore, finalLives, currentSessionCoins) => {
+    (finalScore, finalLives, currentSessionCoins, { skipWinSfx = false } = {}) => {
       const stars = finalLives >= 5 ? 3 : finalLives >= 3 ? 2 : 1;
       const bonusCoins = stars * 15 + Math.floor(finalScore / 20);
       const totalEarned = currentSessionCoins + bonusCoins;
 
       setIsWin(true);
-      audioManager.playWin();
+      if (!skipWinSfx) {
+        audioManager.playWin();
+      }
       onCompleteSurah({
         surahId: surah.id,
         stars,
@@ -194,33 +221,52 @@ export default function Gameplay({
       setSessionCoins(nextSessionCoins);
       setCombo(nextCombo);
       triggerFloatingScore(gained, isHint ? 0 : nextCombo);
-
-      if (isHint) {
-        audioManager.playHint();
-        setLastHintIndex(mode === 'mushaf' ? mushafCursor : trWordCursor);
-      } else if (nextCombo > 0 && nextCombo % 5 === 0) {
-        audioManager.playCombo(nextCombo);
-        setLastHintIndex(null);
-      } else {
-        audioManager.playCorrect();
-        setLastHintIndex(null);
-      }
+      setLastHintIndex(isHint ? (mode === 'mushaf' ? mushafCursor : trWordCursor) : null);
 
       if (mode === 'mushaf') {
+        const currentItem = stageArabicItems[mushafCursor];
+        if (currentItem?.isLastInVerse) {
+          const verseNum = currentItem.verseNumber;
+          setRecitingVerseNumber(verseNum);
+          audioManager.playAyahAudio(surah.id, verseNum, {
+            onEnded: () =>
+              setRecitingVerseNumber((prev) => (prev === verseNum ? null : prev)),
+          });
+        } else {
+          setRecitingVerseNumber(null);
+          audioManager.playWordAudio(currentItem?.audioUrl);
+        }
+
         const nextCursor = mushafCursor + 1;
-        if (nextCursor < stageArabicTokens.length) {
+        if (nextCursor < stageArabicItems.length) {
           setMushafCursor(nextCursor);
         } else if (stageIndex + 1 < stages.length) {
-          audioManager.playStageClear();
           setMushafCursor(nextCursor);
           setStageCleared(true);
         } else {
           setMushafCursor(nextCursor);
-          finishLevel(nextScore, lives, nextSessionCoins);
+          finishLevel(nextScore, lives, nextSessionCoins, {
+            skipWinSfx: Boolean(currentItem?.isLastInVerse),
+          });
         }
       } else {
         const wordsLen = currentTrVerse?.translationWords?.length || 0;
         const nextWordCursor = trWordCursor + 1;
+        const isLastWordInVerse = nextWordCursor >= wordsLen;
+
+        if (isLastWordInVerse && currentTrVerse?.verseNumber) {
+          const verseNum = currentTrVerse.verseNumber;
+          setRecitingVerseNumber(verseNum);
+          audioManager.playAyahAudio(surah.id, verseNum, {
+            onEnded: () =>
+              setRecitingVerseNumber((prev) => (prev === verseNum ? null : prev)),
+          });
+        } else {
+          setRecitingVerseNumber(null);
+          audioManager.stopMurottal();
+          audioManager.playCorrect();
+        }
+
         if (nextWordCursor < wordsLen) {
           setTrWordCursor(nextWordCursor);
         } else if (trVerseIndex + 1 < (currentStage?.verses?.length || 0)) {
@@ -228,12 +274,13 @@ export default function Gameplay({
           setTrWordCursor(0);
           setLastHintIndex(null);
         } else if (stageIndex + 1 < stages.length) {
-          audioManager.playStageClear();
           setTrWordCursor(nextWordCursor);
           setStageCleared(true);
         } else {
           setTrWordCursor(nextWordCursor);
-          finishLevel(nextScore, lives, nextSessionCoins);
+          finishLevel(nextScore, lives, nextSessionCoins, {
+            skipWinSfx: Boolean(isLastWordInVerse),
+          });
         }
       }
     },
@@ -244,7 +291,8 @@ export default function Gameplay({
       mode,
       mushafCursor,
       trWordCursor,
-      stageArabicTokens.length,
+      stageArabicItems,
+      surah.id,
       stageIndex,
       stages.length,
       currentTrVerse,
@@ -261,7 +309,7 @@ export default function Gameplay({
     if (choice.text === targetWord) {
       advanceCorrectStep(false);
     } else {
-      audioManager.playWrong();
+      // Hening saat salah: cukup animasi getar merah tanpa SFX
       setCombo(0);
       setWrongChoiceId(choice.id);
       setTimeout(() => {
@@ -271,8 +319,9 @@ export default function Gameplay({
       const nextLives = lives - 1;
       setLives(nextLives);
       if (nextLives <= 0) {
+        audioManager.stopMurottal();
+        setRecitingVerseNumber(null);
         setIsGameOver(true);
-        audioManager.playGameOver();
       }
     }
   };
@@ -284,6 +333,8 @@ export default function Gameplay({
   };
 
   const handleNextStage = () => {
+    audioManager.stopMurottal();
+    setRecitingVerseNumber(null);
     audioManager.playClick();
     setStageCleared(false);
     setStageIndex((idx) => idx + 1);
@@ -295,9 +346,18 @@ export default function Gameplay({
 
   const handleToggleMode = (nextMode) => {
     if (nextMode === mode) return;
+    audioManager.stopMurottal();
+    setRecitingVerseNumber(null);
     audioManager.playClick();
     setMode(nextMode);
     resetGameState();
+  };
+
+  const handleExit = () => {
+    audioManager.stopMurottal();
+    setRecitingVerseNumber(null);
+    audioManager.playClick();
+    onExit();
   };
 
   // Hitung progres keseluruhan ayat/bagian
@@ -322,10 +382,7 @@ export default function Gameplay({
             {/* Keluar (X) */}
             <button
               type="button"
-              onClick={() => {
-                audioManager.playClick();
-                onExit();
-              }}
+              onClick={handleExit}
               aria-label="Keluar ke daftar surat"
               className="btn-3d w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 border-b-4 flex items-center justify-center text-slate-600 shrink-0"
             >
@@ -424,19 +481,38 @@ export default function Gameplay({
               )}
             </div>
 
-            {/* Tombol Reset Surat */}
-            <button
-              type="button"
-              onClick={() => {
-                audioManager.playClick();
-                resetGameState();
-              }}
-              title="Reset surat dari awal"
-              className="btn-3d inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 border-b-2 text-[11px] font-extrabold text-slate-700 shrink-0"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>Reset</span>
-            </button>
+            {/* Toggle Sound/Mute + Tombol Reset Surat */}
+            <div className="flex items-center gap-1.5 shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  onToggleSfx?.();
+                  audioManager.playClick();
+                }}
+                aria-label={profile.sfxEnabled ? 'Matikan suara' : 'Nyalakan suara'}
+                title={profile.sfxEnabled ? 'Suara Aktif' : 'Suara Mati'}
+                className="btn-3d p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 border-b-2 text-slate-700"
+              >
+                {profile.sfxEnabled ? (
+                  <Volume2 className="w-3.5 h-3.5 text-emerald-600" />
+                ) : (
+                  <VolumeX className="w-3.5 h-3.5 text-slate-400" />
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  resetGameState();
+                  audioManager.playClick();
+                }}
+                title="Reset surat dari awal"
+                className="btn-3d inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 border-b-2 text-[11px] font-extrabold text-slate-700"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Reset</span>
+              </button>
+            </div>
           </div>
         </header>
 
@@ -487,7 +563,7 @@ export default function Gameplay({
               </button>
               <button
                 type="button"
-                onClick={onExit}
+                onClick={handleExit}
                 className="btn-3d px-4 py-2.5 rounded-2xl bg-white text-slate-700 font-extrabold text-sm border-2 border-slate-300 border-b-4"
               >
                 Kembali
@@ -505,6 +581,7 @@ export default function Gameplay({
                 ghostText={ghostText}
                 onToggleGhostText={() => setGhostText((g) => !g)}
                 lastHintIndex={lastHintIndex}
+                recitingVerseNumber={recitingVerseNumber}
               />
             ) : (
               <TranslationBoard
@@ -514,6 +591,7 @@ export default function Gameplay({
                 ghostText={ghostText}
                 onToggleGhostText={() => setGhostText((g) => !g)}
                 lastHintIndex={lastHintIndex}
+                recitingVerseNumber={recitingVerseNumber}
               />
             )}
 
@@ -560,9 +638,13 @@ export default function Gameplay({
             score={score}
             earnedCoins={totalBonusPreview}
             hasNextSurah={hasNextSurah}
-            onNextSurah={onNextSurah}
+            onNextSurah={() => {
+              audioManager.stopMurottal();
+              setRecitingVerseNumber(null);
+              onNextSurah();
+            }}
             onReplay={resetGameState}
-            onBackToList={onExit}
+            onBackToList={handleExit}
           />
         )}
 
@@ -572,7 +654,7 @@ export default function Gameplay({
             profile={profile}
             surah={surah}
             onReplay={resetGameState}
-            onBackToList={onExit}
+            onBackToList={handleExit}
           />
         )}
       </div>

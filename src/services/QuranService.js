@@ -62,19 +62,21 @@ export function cleanTranslationText(rawHtml = '') {
  * Token tanda waqaf yang berdiri sendiri digabung ke kata sebelumnya agar tidak jadi slot terpisah.
  */
 function extractArabicWords(rawWords = []) {
-  const tokens = [];
+  const words = [];
+  const wordAudios = [];
   for (const w of rawWords) {
     if (w.char_type_name !== 'word') continue;
     const text = (w.text_uthmani || w.text || '').trim();
     if (!text) continue;
 
-    if (!ARABIC_LETTER_REGEX.test(text) && tokens.length > 0) {
-      tokens[tokens.length - 1] = `${tokens[tokens.length - 1]} ${text}`;
+    if (!ARABIC_LETTER_REGEX.test(text) && words.length > 0) {
+      words[words.length - 1] = `${words[words.length - 1]} ${text}`;
     } else {
-      tokens.push(text);
+      words.push(text);
+      wordAudios.push(w.audio_url || null);
     }
   }
-  return tokens;
+  return { words, wordAudios };
 }
 
 function extractTranslationWords(translationText) {
@@ -89,7 +91,7 @@ export function normalizeVerses(rawVerses = []) {
   return rawVerses.map((v) => {
     const rawTr = v.translations?.[0]?.text || '';
     const translation = cleanTranslationText(rawTr);
-    const arabicWords = extractArabicWords(v.words || []);
+    const { words: arabicWords, wordAudios: arabicWordAudios } = extractArabicWords(v.words || []);
     const translationWords = extractTranslationWords(translation);
 
     return {
@@ -99,6 +101,7 @@ export function normalizeVerses(rawVerses = []) {
       pageNumber: v.page_number,
       arabicFull: arabicWords.join(' '),
       arabicWords,
+      arabicWordAudios,
       translation,
       translationWords,
     };
@@ -201,7 +204,7 @@ export const QuranService = {
       const allRawVerses = [];
 
       while (nextPage !== null) {
-        const url = `${API_BASE}/${surahId}?words=true&translations=33&word_fields=text_uthmani&per_page=50&page=${page}`;
+        const url = `${API_BASE}/${surahId}?words=true&translations=33&word_fields=text_uthmani,audio_url&per_page=50&page=${page}`;
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}`);

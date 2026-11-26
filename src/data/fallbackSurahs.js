@@ -12,19 +12,22 @@ export const FALLBACK_SURAHS = {
             "id": 676,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "عَمَّ"
+            "text_uthmani": "عَمَّ",
+            "audio_url": "wbw/078_001_001.mp3"
           },
           {
             "id": 677,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "يَتَسَآءَلُونَ"
+            "text_uthmani": "يَتَسَآءَلُونَ",
+            "audio_url": "wbw/078_001_002.mp3"
           },
           {
             "id": 678,
             "position": 3,
             "char_type_name": "end",
-            "text_uthmani": "١"
+            "text_uthmani": "١",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -43,25 +46,29 @@ export const FALLBACK_SURAHS = {
             "id": 1691,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "عَنِ"
+            "text_uthmani": "عَنِ",
+            "audio_url": "wbw/078_002_001.mp3"
           },
           {
             "id": 1692,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "ٱلنَّبَإِ"
+            "text_uthmani": "ٱلنَّبَإِ",
+            "audio_url": "wbw/078_002_002.mp3"
           },
           {
             "id": 1693,
             "position": 3,
             "char_type_name": "word",
-            "text_uthmani": "ٱلْعَظِيمِ"
+            "text_uthmani": "ٱلْعَظِيمِ",
+            "audio_url": "wbw/078_002_003.mp3"
           },
           {
             "id": 1694,
             "position": 4,
             "char_type_name": "end",
-            "text_uthmani": "٢"
+            "text_uthmani": "٢",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -80,31 +87,36 @@ export const FALLBACK_SURAHS = {
             "id": 2799,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "ٱلَّذِى"
+            "text_uthmani": "ٱلَّذِى",
+            "audio_url": "wbw/078_003_001.mp3"
           },
           {
             "id": 2800,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "هُمْ"
+            "text_uthmani": "هُمْ",
+            "audio_url": "wbw/078_003_002.mp3"
           },
           {
             "id": 2801,
             "position": 3,
             "char_type_name": "word",
-            "text_uthmani": "فِيهِ"
+            "text_uthmani": "فِيهِ",
+            "audio_url": "wbw/078_003_003.mp3"
           },
           {
             "id": 2802,
             "position": 4,
             "char_type_name": "word",
-            "text_uthmani": "مُخْتَلِفُونَ"
+            "text_uthmani": "مُخْتَلِفُونَ",
+            "audio_url": "wbw/078_003_004.mp3"
           },
           {
             "id": 2803,
             "position": 5,
             "char_type_name": "end",
-            "text_uthmani": "٣"
+            "text_uthmani": "٣",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -123,19 +135,22 @@ export const FALLBACK_SURAHS = {
             "id": 4175,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "كَلَّا"
+            "text_uthmani": "كَلَّا",
+            "audio_url": "wbw/078_004_001.mp3"
           },
           {
             "id": 4176,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "سَيَعْلَمُونَ"
+            "text_uthmani": "سَيَعْلَمُونَ",
+            "audio_url": "wbw/078_004_002.mp3"
           },
           {
             "id": 4177,
             "position": 3,
             "char_type_name": "end",
-            "text_uthmani": "٤"
+            "text_uthmani": "٤",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -154,25 +169,29 @@ export const FALLBACK_SURAHS = {
             "id": 5448,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "ثُمَّ"
+            "text_uthmani": "ثُمَّ",
+            "audio_url": "wbw/078_005_001.mp3"
           },
           {
             "id": 5449,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "كَلَّا"
+            "text_uthmani": "كَلَّا",
+            "audio_url": "wbw/078_005_002.mp3"
           },
           {
             "id": 5450,
             "position": 3,
             "char_type_name": "word",
-            "text_uthmani": "سَيَعْلَمُونَ"
+            "text_uthmani": "سَيَعْلَمُونَ",
+            "audio_url": "wbw/078_005_003.mp3"
           },
           {
             "id": 5451,
             "position": 4,
             "char_type_name": "end",
-            "text_uthmani": "٥"
+            "text_uthmani": "٥",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -191,31 +210,36 @@ export const FALLBACK_SURAHS = {
             "id": 6671,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "أَلَمْ"
+            "text_uthmani": "أَلَمْ",
+            "audio_url": "wbw/078_006_001.mp3"
           },
           {
             "id": 6672,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "نَجْعَلِ"
+            "text_uthmani": "نَجْعَلِ",
+            "audio_url": "wbw/078_006_002.mp3"
           },
           {
             "id": 6673,
             "position": 3,
             "char_type_name": "word",
-            "text_uthmani": "ٱلْأَرْضَ"
+            "text_uthmani": "ٱلْأَرْضَ",
+            "audio_url": "wbw/078_006_003.mp3"
           },
           {
             "id": 6674,
             "position": 4,
             "char_type_name": "word",
-            "text_uthmani": "مِهَـٰدًۭا"
+            "text_uthmani": "مِهَـٰدًۭا",
+            "audio_url": "wbw/078_006_004.mp3"
           },
           {
             "id": 6675,
             "position": 5,
             "char_type_name": "end",
-            "text_uthmani": "٦"
+            "text_uthmani": "٦",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -234,19 +258,22 @@ export const FALLBACK_SURAHS = {
             "id": 8023,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "وَٱلْجِبَالَ"
+            "text_uthmani": "وَٱلْجِبَالَ",
+            "audio_url": "wbw/078_007_001.mp3"
           },
           {
             "id": 8024,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "أَوْتَادًۭا"
+            "text_uthmani": "أَوْتَادًۭا",
+            "audio_url": "wbw/078_007_002.mp3"
           },
           {
             "id": 8025,
             "position": 3,
             "char_type_name": "end",
-            "text_uthmani": "٧"
+            "text_uthmani": "٧",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -265,19 +292,22 @@ export const FALLBACK_SURAHS = {
             "id": 9186,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "وَخَلَقْنَـٰكُمْ"
+            "text_uthmani": "وَخَلَقْنَـٰكُمْ",
+            "audio_url": "wbw/078_008_001.mp3"
           },
           {
             "id": 9187,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "أَزْوَٰجًۭا"
+            "text_uthmani": "أَزْوَٰجًۭا",
+            "audio_url": "wbw/078_008_002.mp3"
           },
           {
             "id": 9188,
             "position": 3,
             "char_type_name": "end",
-            "text_uthmani": "٨"
+            "text_uthmani": "٨",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -296,25 +326,29 @@ export const FALLBACK_SURAHS = {
             "id": 10397,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "وَجَعَلْنَا"
+            "text_uthmani": "وَجَعَلْنَا",
+            "audio_url": "wbw/078_009_001.mp3"
           },
           {
             "id": 10398,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "نَوْمَكُمْ"
+            "text_uthmani": "نَوْمَكُمْ",
+            "audio_url": "wbw/078_009_002.mp3"
           },
           {
             "id": 10399,
             "position": 3,
             "char_type_name": "word",
-            "text_uthmani": "سُبَاتًۭا"
+            "text_uthmani": "سُبَاتًۭا",
+            "audio_url": "wbw/078_009_003.mp3"
           },
           {
             "id": 10400,
             "position": 4,
             "char_type_name": "end",
-            "text_uthmani": "٩"
+            "text_uthmani": "٩",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -333,25 +367,29 @@ export const FALLBACK_SURAHS = {
             "id": 11624,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "وَجَعَلْنَا"
+            "text_uthmani": "وَجَعَلْنَا",
+            "audio_url": "wbw/078_010_001.mp3"
           },
           {
             "id": 11625,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "ٱلَّيْلَ"
+            "text_uthmani": "ٱلَّيْلَ",
+            "audio_url": "wbw/078_010_002.mp3"
           },
           {
             "id": 11626,
             "position": 3,
             "char_type_name": "word",
-            "text_uthmani": "لِبَاسًۭا"
+            "text_uthmani": "لِبَاسًۭا",
+            "audio_url": "wbw/078_010_003.mp3"
           },
           {
             "id": 11627,
             "position": 4,
             "char_type_name": "end",
-            "text_uthmani": "١٠"
+            "text_uthmani": "١٠",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -375,31 +413,36 @@ export const FALLBACK_SURAHS = {
             "id": 6,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "قُلْ"
+            "text_uthmani": "قُلْ",
+            "audio_url": "wbw/112_001_001.mp3"
           },
           {
             "id": 7,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "هُوَ"
+            "text_uthmani": "هُوَ",
+            "audio_url": "wbw/112_001_002.mp3"
           },
           {
             "id": 8,
             "position": 3,
             "char_type_name": "word",
-            "text_uthmani": "ٱللَّهُ"
+            "text_uthmani": "ٱللَّهُ",
+            "audio_url": "wbw/112_001_003.mp3"
           },
           {
             "id": 9,
             "position": 4,
             "char_type_name": "word",
-            "text_uthmani": "أَحَدٌ"
+            "text_uthmani": "أَحَدٌ",
+            "audio_url": "wbw/112_001_004.mp3"
           },
           {
             "id": 10,
             "position": 5,
             "char_type_name": "end",
-            "text_uthmani": "١"
+            "text_uthmani": "١",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -418,19 +461,22 @@ export const FALLBACK_SURAHS = {
             "id": 916,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "ٱللَّهُ"
+            "text_uthmani": "ٱللَّهُ",
+            "audio_url": "wbw/112_002_001.mp3"
           },
           {
             "id": 917,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "ٱلصَّمَدُ"
+            "text_uthmani": "ٱلصَّمَدُ",
+            "audio_url": "wbw/112_002_002.mp3"
           },
           {
             "id": 918,
             "position": 3,
             "char_type_name": "end",
-            "text_uthmani": "٢"
+            "text_uthmani": "٢",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -449,31 +495,36 @@ export const FALLBACK_SURAHS = {
             "id": 2746,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "لَمْ"
+            "text_uthmani": "لَمْ",
+            "audio_url": "wbw/112_003_001.mp3"
           },
           {
             "id": 2747,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "يَلِدْ"
+            "text_uthmani": "يَلِدْ",
+            "audio_url": "wbw/112_003_002.mp3"
           },
           {
             "id": 2748,
             "position": 3,
             "char_type_name": "word",
-            "text_uthmani": "وَلَمْ"
+            "text_uthmani": "وَلَمْ",
+            "audio_url": "wbw/112_003_003.mp3"
           },
           {
             "id": 2749,
             "position": 4,
             "char_type_name": "word",
-            "text_uthmani": "يُولَدْ"
+            "text_uthmani": "يُولَدْ",
+            "audio_url": "wbw/112_003_004.mp3"
           },
           {
             "id": 2750,
             "position": 5,
             "char_type_name": "end",
-            "text_uthmani": "٣"
+            "text_uthmani": "٣",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -492,37 +543,43 @@ export const FALLBACK_SURAHS = {
             "id": 4136,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "وَلَمْ"
+            "text_uthmani": "وَلَمْ",
+            "audio_url": "wbw/112_004_001.mp3"
           },
           {
             "id": 4137,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "يَكُن"
+            "text_uthmani": "يَكُن",
+            "audio_url": "wbw/112_004_002.mp3"
           },
           {
             "id": 4138,
             "position": 3,
             "char_type_name": "word",
-            "text_uthmani": "لَّهُۥ"
+            "text_uthmani": "لَّهُۥ",
+            "audio_url": "wbw/112_004_003.mp3"
           },
           {
             "id": 4139,
             "position": 4,
             "char_type_name": "word",
-            "text_uthmani": "كُفُوًا"
+            "text_uthmani": "كُفُوًا",
+            "audio_url": "wbw/112_004_004.mp3"
           },
           {
             "id": 4140,
             "position": 5,
             "char_type_name": "word",
-            "text_uthmani": "أَحَدٌۢ"
+            "text_uthmani": "أَحَدٌۢ",
+            "audio_url": "wbw/112_004_005.mp3"
           },
           {
             "id": 4141,
             "position": 6,
             "char_type_name": "end",
-            "text_uthmani": "٤"
+            "text_uthmani": "٤",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -546,31 +603,36 @@ export const FALLBACK_SURAHS = {
             "id": 115,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "قُلْ"
+            "text_uthmani": "قُلْ",
+            "audio_url": "wbw/114_001_001.mp3"
           },
           {
             "id": 116,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "أَعُوذُ"
+            "text_uthmani": "أَعُوذُ",
+            "audio_url": "wbw/114_001_002.mp3"
           },
           {
             "id": 117,
             "position": 3,
             "char_type_name": "word",
-            "text_uthmani": "بِرَبِّ"
+            "text_uthmani": "بِرَبِّ",
+            "audio_url": "wbw/114_001_003.mp3"
           },
           {
             "id": 118,
             "position": 4,
             "char_type_name": "word",
-            "text_uthmani": "ٱلنَّاسِ"
+            "text_uthmani": "ٱلنَّاسِ",
+            "audio_url": "wbw/114_001_004.mp3"
           },
           {
             "id": 119,
             "position": 5,
             "char_type_name": "end",
-            "text_uthmani": "١"
+            "text_uthmani": "١",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -589,19 +651,22 @@ export const FALLBACK_SURAHS = {
             "id": 932,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "مَلِكِ"
+            "text_uthmani": "مَلِكِ",
+            "audio_url": "wbw/114_002_001.mp3"
           },
           {
             "id": 933,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "ٱلنَّاسِ"
+            "text_uthmani": "ٱلنَّاسِ",
+            "audio_url": "wbw/114_002_002.mp3"
           },
           {
             "id": 934,
             "position": 3,
             "char_type_name": "end",
-            "text_uthmani": "٢"
+            "text_uthmani": "٢",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -620,19 +685,22 @@ export const FALLBACK_SURAHS = {
             "id": 2819,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "إِلَـٰهِ"
+            "text_uthmani": "إِلَـٰهِ",
+            "audio_url": "wbw/114_003_001.mp3"
           },
           {
             "id": 2820,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "ٱلنَّاسِ"
+            "text_uthmani": "ٱلنَّاسِ",
+            "audio_url": "wbw/114_003_002.mp3"
           },
           {
             "id": 2821,
             "position": 3,
             "char_type_name": "end",
-            "text_uthmani": "٣"
+            "text_uthmani": "٣",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -651,31 +719,36 @@ export const FALLBACK_SURAHS = {
             "id": 4131,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "مِن"
+            "text_uthmani": "مِن",
+            "audio_url": "wbw/114_004_001.mp3"
           },
           {
             "id": 4132,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "شَرِّ"
+            "text_uthmani": "شَرِّ",
+            "audio_url": "wbw/114_004_002.mp3"
           },
           {
             "id": 4133,
             "position": 3,
             "char_type_name": "word",
-            "text_uthmani": "ٱلْوَسْوَاسِ"
+            "text_uthmani": "ٱلْوَسْوَاسِ",
+            "audio_url": "wbw/114_004_003.mp3"
           },
           {
             "id": 4134,
             "position": 4,
             "char_type_name": "word",
-            "text_uthmani": "ٱلْخَنَّاسِ"
+            "text_uthmani": "ٱلْخَنَّاسِ",
+            "audio_url": "wbw/114_004_004.mp3"
           },
           {
             "id": 4135,
             "position": 5,
             "char_type_name": "end",
-            "text_uthmani": "٤"
+            "text_uthmani": "٤",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -694,37 +767,43 @@ export const FALLBACK_SURAHS = {
             "id": 5496,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "ٱلَّذِى"
+            "text_uthmani": "ٱلَّذِى",
+            "audio_url": "wbw/114_005_001.mp3"
           },
           {
             "id": 5497,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "يُوَسْوِسُ"
+            "text_uthmani": "يُوَسْوِسُ",
+            "audio_url": "wbw/114_005_002.mp3"
           },
           {
             "id": 5498,
             "position": 3,
             "char_type_name": "word",
-            "text_uthmani": "فِى"
+            "text_uthmani": "فِى",
+            "audio_url": "wbw/114_005_003.mp3"
           },
           {
             "id": 5499,
             "position": 4,
             "char_type_name": "word",
-            "text_uthmani": "صُدُورِ"
+            "text_uthmani": "صُدُورِ",
+            "audio_url": "wbw/114_005_004.mp3"
           },
           {
             "id": 5500,
             "position": 5,
             "char_type_name": "word",
-            "text_uthmani": "ٱلنَّاسِ"
+            "text_uthmani": "ٱلنَّاسِ",
+            "audio_url": "wbw/114_005_005.mp3"
           },
           {
             "id": 5501,
             "position": 6,
             "char_type_name": "end",
-            "text_uthmani": "٥"
+            "text_uthmani": "٥",
+            "audio_url": null
           }
         ],
         "translations": [
@@ -743,25 +822,29 @@ export const FALLBACK_SURAHS = {
             "id": 6729,
             "position": 1,
             "char_type_name": "word",
-            "text_uthmani": "مِنَ"
+            "text_uthmani": "مِنَ",
+            "audio_url": "wbw/114_006_001.mp3"
           },
           {
             "id": 6730,
             "position": 2,
             "char_type_name": "word",
-            "text_uthmani": "ٱلْجِنَّةِ"
+            "text_uthmani": "ٱلْجِنَّةِ",
+            "audio_url": "wbw/114_006_002.mp3"
           },
           {
             "id": 6731,
             "position": 3,
             "char_type_name": "word",
-            "text_uthmani": "وَٱلنَّاسِ"
+            "text_uthmani": "وَٱلنَّاسِ",
+            "audio_url": "wbw/114_006_003.mp3"
           },
           {
             "id": 6732,
             "position": 4,
             "char_type_name": "end",
-            "text_uthmani": "٦"
+            "text_uthmani": "٦",
+            "audio_url": null
           }
         ],
         "translations": [
